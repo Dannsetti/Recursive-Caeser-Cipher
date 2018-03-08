@@ -92,7 +92,7 @@ class Caesar {
             }
             key = extraIndex
         }
-        
+
 
         // call the encipher function to decipher using the key discovered.
         return encipher(s, key)
