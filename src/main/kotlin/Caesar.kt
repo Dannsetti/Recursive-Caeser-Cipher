@@ -1,3 +1,7 @@
+import java.io.File
+import java.util.*
+import kotlin.collections.ArrayList
+
 class Caesar {
 
     fun encipher(s: String, n: Int): String {
@@ -98,6 +102,40 @@ class Caesar {
         return encipher(s, key)
 
     }
+
+    fun decipher2(s: String): String {
+        val PATH = System.getProperty("user.dir") + "/src/main/resources/"
+        val input = Scanner(File(PATH + "100FrequentWords.txt"))
+        val frequentWords = ArrayList<String>()
+        var line = ""
+        while (input.hasNext()) {
+            line = input.nextLine()
+            frequentWords += line
+        }
+        var index = 1
+        var decrypted = ""
+        var found = false
+        for (i in 1..25) {
+            println("i " + i)
+            val testResult = encipher(s, index)
+            val testResultWords = testResult.split(" ")
+            println(testResultWords)
+            for(j in testResultWords) {
+                println(j)
+                if (frequentWords.contains(j)) {
+                    found = true
+                }
+
+            }
+            if (found) {
+                decrypted += testResult
+                found = false
+            }
+            index ++
+        }
+        return decrypted
+    }
+
 }
 
 fun main(args: Array<String>) {
@@ -106,4 +144,13 @@ fun main(args: Array<String>) {
 
     val decrypt = Caesar().decipher("Hu lkbjhapvu pz doha ylthpuz hmaly dl mvynla clyfaopun dl ohcl slhyulk.")
     println(decrypt)
+
+    val decrypt2 = Caesar().decipher2("Hu lkbjhapvu pz doha ylthpuz hmaly dl mvynla clyfaopun dl " +
+            "ohcl slhyulk.")
+    println(decrypt2)
+
+    val decrypt3 = Caesar().decipher2("Bzdrzq bhogdq? H oqdedq Bzdrzq rzkzc.")
+    println(decrypt3)
+
+
 }
