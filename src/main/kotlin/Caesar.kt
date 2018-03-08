@@ -36,10 +36,10 @@ class Caesar {
         return result.joinToString("")
     }
 
+    /**
+     * Letter frequency, taken from Wikipedia: "etaoinshrdlcumwfgypbvkjxqz"
+     */
     fun decipher(s: String): String {
-        // Letters frequency took from Wikipedia
-        val frequencyAlphabet = "etaoinshrdlcumwfgypbvkjxqz"
-
         // E is the most frequent and its index is 5 in the alphabet
         val letterEIndex = 5
 
@@ -101,6 +101,9 @@ class Caesar {
         return encipher(s, key)
     }
 
+    /**
+     * British English word frequency, taken from http://www.bckelk.ukfsn.org/words/uk1000n.html
+     */
     fun decipher2(s: String): String {
         // get wordList
         val frequentWords = createWordList()
@@ -135,13 +138,10 @@ class Caesar {
 
     private fun createWordList(): ArrayList<String> {
         // create and load dictionary array of frequent words
-        val path = System.getProperty("user.dir") + "/src/main/resources/"
-        val input = Scanner(File(path + "100FrequentWords.txt"))
+        val input = Scanner(File("src/main/resources/100FrequentWords.txt"))
         val frequentWords = ArrayList<String>()
-        var line = ""
         while (input.hasNext()) {
-            line = input.nextLine()
-            frequentWords += line
+            frequentWords += input.nextLine()
         }
         return frequentWords
     }
@@ -151,14 +151,14 @@ fun main(args: Array<String>) {
     val encrypt = Caesar().encipher("Caesar cipher? I prefer Caesar salad.", 25)
     println("Encrypt: $encrypt")
 
-    val decrypt1 = Caesar().decipher("Hu lkbjhapvu pz doha ylthpuz hmaly dl mvynla clyfaopun dl " +
+    val decrypt1 = Caesar().decipher("Hu lkbjhapvu pz doha ylthpuz hmaly dl mvynla lclyfaopun dl " +
             "ohcl slhyulk.")
     println("Decrypt: $decrypt1")
 
     val decrypt2 = Caesar().decipher("Bzdrzq bhogdq? H oqdedq Bzdrzq rzkzc.")
     println("Decrypt: $decrypt2")
 
-    val decrypt3 = Caesar().decipher2("Hu lkbjhapvu pz doha ylthpuz hmaly dl mvynla clyfaopun dl " +
+    val decrypt3 = Caesar().decipher2("Hu lkbjhapvu pz doha ylthpuz hmaly dl mvynla lclyfaopun dl " +
             "ohcl slhyulk.")
     println("Decrypt2: $decrypt3")
 
