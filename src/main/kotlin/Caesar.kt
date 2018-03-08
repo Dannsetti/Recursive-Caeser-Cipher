@@ -14,7 +14,7 @@ class Caesar {
             // add value of n
             currentChar += n
             // rotate if new value is greater than value of 'Z'
-            if(currentChar > 'Z') {
+            if (currentChar > 'Z') {
                 currentChar -= 26
             }
             // now check if currentChar is a lowercase letter:
@@ -22,7 +22,7 @@ class Caesar {
             // add value of n
             currentChar += n
             // rotate if new value is greater than value of 'z'
-            if(currentChar > 'z') {
+            if (currentChar > 'z') {
                 currentChar -= 26
             }
         }
@@ -45,13 +45,13 @@ class Caesar {
 
         // Create an alphabet to get letter index
         val alphabet = "abcdefghijklmnopqrstuvwxyz"
-        println(alphabet)
+        //println(alphabet)
 
         // the key is the length of the alphabet plus the index of the most frequent
         // as we are decrypting we need to go backwards so the index of the the letter with
         // most occurrences will be deducted from the key.
         var key = 26 + letterEIndex
-        println(key)
+        //println(key)
 
         // Create 2 var to hold the key and value of the most frequent letter
         var letterMaxOccur = ""
@@ -60,13 +60,13 @@ class Caesar {
         // Group the enciphered string to the numbers of occurrences of each char
         // to get the most frequent that could be letter E or e in accordance to
         // the probability of the use of the letter in English words
-        val mostFrequentLetters = s.toLowerCase().groupingBy{it}.eachCount()
-        println(mostFrequentLetters)
+        val mostFrequentLetters = s.toLowerCase().groupingBy { it }.eachCount()
+        //println(mostFrequentLetters)
 
         // iterate through the group to get the letter that occurs more
         for (i in mostFrequentLetters) {
             if (i.key.toString() in "a".."z") {
-                if (letterCounter < i.value ) {
+                if (letterCounter < i.value) {
                     letterCounter = i.value
                     letterMaxOccur = i.key.toString()
                 }
@@ -83,15 +83,15 @@ class Caesar {
             // when find it subtract the value index to discover the key that was used to encrypt
             if (j.toString() == letterMaxOccur) {
                 key -= alphabetCounter
-                println(alphabetCounter)
-                println(key)
+                //println(alphabetCounter)
+                //println(key)
 
             }
         }
 
         if (key > 26) {
             for (k in 26..key) {
-                println("Here")
+                //println("Here")
                 extraIndex += 1
             }
             key = extraIndex
@@ -104,6 +104,40 @@ class Caesar {
     }
 
     fun decipher2(s: String): String {
+        // get wordList
+        val frequentWords = createWordList()
+
+        // create variables to compare words
+        var index = 1
+        var decrypted = ""
+        var found = false
+
+        // check wordList contains any word in sample decryption
+        // will check every possible key in a loop
+        for (i in 1..25) {
+            val testResult = encipher(s, index)
+            // obtain each word in decrypted sample
+            val testResultWords = testResult.split(" ")
+            // compare each word with frequent word list
+            for (j in testResultWords) {
+                if (frequentWords.contains(j)) {
+                    found = true
+                }
+
+            }
+            // if there is a match, add decrypted sample to possible solution
+            if (found) {
+                decrypted += testResult
+                found = false
+            }
+            index++
+        }
+        // return all possible solutions
+        return decrypted
+    }
+
+    fun createWordList(): ArrayList<String> {
+        // create and load dictionary array of frequent words
         val PATH = System.getProperty("user.dir") + "/src/main/resources/"
         val input = Scanner(File(PATH + "100FrequentWords.txt"))
         val frequentWords = ArrayList<String>()
@@ -112,45 +146,28 @@ class Caesar {
             line = input.nextLine()
             frequentWords += line
         }
-        var index = 1
-        var decrypted = ""
-        var found = false
-        for (i in 1..25) {
-            println("i " + i)
-            val testResult = encipher(s, index)
-            val testResultWords = testResult.split(" ")
-            println(testResultWords)
-            for(j in testResultWords) {
-                println(j)
-                if (frequentWords.contains(j)) {
-                    found = true
-                }
-
-            }
-            if (found) {
-                decrypted += testResult
-                found = false
-            }
-            index ++
-        }
-        return decrypted
+        return frequentWords
     }
 
 }
 
 fun main(args: Array<String>) {
     val encrypt = Caesar().encipher("Caesar cipher? I prefer Caesar salad.", 25)
-    println(encrypt)
+    println("Encrypt: " + encrypt)
 
-    val decrypt = Caesar().decipher("Hu lkbjhapvu pz doha ylthpuz hmaly dl mvynla clyfaopun dl ohcl slhyulk.")
-    println(decrypt)
-
-    val decrypt2 = Caesar().decipher2("Hu lkbjhapvu pz doha ylthpuz hmaly dl mvynla clyfaopun dl " +
+    val decrypt1 = Caesar().decipher("Hu lkbjhapvu pz doha ylthpuz hmaly dl mvynla clyfaopun dl " +
             "ohcl slhyulk.")
-    println(decrypt2)
+    println("Decrypt: " + decrypt1)
 
-    val decrypt3 = Caesar().decipher2("Bzdrzq bhogdq? H oqdedq Bzdrzq rzkzc.")
-    println(decrypt3)
+    val decrypt2 = Caesar().decipher("Bzdrzq bhogdq? H oqdedq Bzdrzq rzkzc.")
+    println("Decrypt: " + decrypt2)
+
+    val decrypt3 = Caesar().decipher2("Hu lkbjhapvu pz doha ylthpuz hmaly dl mvynla clyfaopun dl " +
+            "ohcl slhyulk.")
+    println("Decrypt2: " + decrypt3)
+
+    val decrypt4 = Caesar().decipher2("Bzdrzq bhogdq? H oqdedq Bzdrzq rzkzc.")
+    println("Decrypt2: " + decrypt4)
 
 
 }
