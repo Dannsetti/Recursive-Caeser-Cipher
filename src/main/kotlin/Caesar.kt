@@ -1,10 +1,20 @@
 import java.io.File
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
 class Caesar {
 
     fun encipher(s: String, n: Int): String {
+
+        // Just an test to validate the key
+        if (n < 0 || n > 25) {
+            print("Input is invalid. Enter a positive integer in the range of 0..25: ")
+            val input = Scanner(System.`in`)
+            val n1 = input.nextInt()
+            return encipher(s, n1)
+        }
+
         // start reading message string, one char at a time:
         var currentChar = s[0]
         // create arraylist to hold result:
