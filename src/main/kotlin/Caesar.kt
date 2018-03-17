@@ -7,7 +7,7 @@ class Caesar {
 
     fun encipher(s: String, n: Int): String {
 
-        // Just an test to validate the key
+        // Key validation
         if (n < 0 || n > 25) {
             print("Input is invalid. Enter a positive integer in the range of 0..25: ")
             val input = Scanner(System.`in`)
@@ -45,6 +45,20 @@ class Caesar {
         // return result as a String
         return result.joinToString("")
     }
+
+    /**
+     * Decipher Strategies Description
+     * We decided to develop 2 functions using English Letter and word frequency,
+     * The Letter frequency method we used the letter E, which is the most used letter in English word, as a base.
+     * So, all the calculation to discover the key use the "e" index in the alphabet (5). It works well,
+     * But if we find an phrase that the letter "e" is not the one with the most occurrence it returns gibberish words.
+     * Then, the solution was to develop another solution which uses a kind of dictionary as input to do an word match.
+     *
+     * So we developed the "Word Frequency" solution.
+     * The program tries all possible keys up to 25 decrypting and doing an word matching with the input word dictionary,
+     * So when there is a match it assumes that it is the right key and returns the decrypted sentence.
+     * This solution showed to be much more effective then the first one.
+     */
 
     /**
      * Letter frequency, taken from Wikipedia: "etaoinshrdlcumwfgypbvkjxqz"
