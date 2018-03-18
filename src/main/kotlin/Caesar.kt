@@ -126,7 +126,7 @@ class Caesar {
     }
 
     /**
-     * British English word frequency, taken from http://www.bckelk.ukfsn.org/words/uk1000n.html
+     * English most common word, taken from https://www3.nd.edu/~busiforc/handouts/cryptography/cryptography%20hints.html
      */
     fun decipher2(s: String): String {
         // get wordList
@@ -136,6 +136,9 @@ class Caesar {
         var index = 1
         var decrypted = ""
         var found = false
+        // create counter variables to discover what key returns the most matches
+        var matchCounter = 0
+        var largestMatch = 0
 
         // check wordList contains any word in sample decryption
         // will check every possible key in a loop
@@ -145,18 +148,27 @@ class Caesar {
             val testResultWords = testResult.split(" ")
             // compare each word with frequent word list
             for (j in testResultWords) {
-                if (frequentWords.contains(j)) {
+                // Variable to get a plain word
+                val plainWord = j.replace(Regex("[^\\w']"), "")
+                if (frequentWords.contains(plainWord.toLowerCase())) {
                     found = true
+                    matchCounter += 1
                 }
             }
+
             // if there is a match, add decrypted sample to possible solution
             if (found) {
-                decrypted += testResult
+                if (matchCounter > largestMatch) {
+                    decrypted = testResult
+                    largestMatch = matchCounter
+
+                }
                 found = false
+                matchCounter = 0
             }
             index++
         }
-        // return all possible solutions
+        // return the decrypted solution that had more matches
         return decrypted
     }
 
@@ -175,17 +187,35 @@ fun main(args: Array<String>) {
     val encrypt = Caesar().encipher("Caesar cipher? I prefer Caesar salad.", 25)
     println("Encrypt: $encrypt")
 
+    // Using Letter Frequency Solution
     val decrypt1 = Caesar().decipher("Hu lkbjhapvu pz doha ylthpuz hmaly dl mvynla lclyfaopun dl " +
             "ohcl slhyulk.")
     println("Decrypt: $decrypt1")
 
+    // Using Letter Frequency Solution
     val decrypt2 = Caesar().decipher("Bzdrzq bhogdq? H oqdedq Bzdrzq rzkzc.")
     println("Decrypt: $decrypt2")
 
+    // Using Word Frequency Solution
     val decrypt3 = Caesar().decipher2("Hu lkbjhapvu pz doha ylthpuz hmaly dl mvynla lclyfaopun dl " +
             "ohcl slhyulk.")
     println("Decrypt2: $decrypt3")
 
+    // Using Word Frequency Solution
     val decrypt4 = Caesar().decipher2("Bzdrzq bhogdq? H oqdedq Bzdrzq rzkzc.")
     println("Decrypt2: $decrypt4")
+
+    // More tests
+
+    val encrypt1 = Caesar().encipher("Hello, World!", 11)
+    println("Encrypt: $encrypt1")
+
+    // Using Letter Frequency Solution
+    val decrypt5 = Caesar().decipher("Spwwz, Hzcwo!")
+    println("Decrypt: $decrypt5")
+
+    // Using Word Frequency Solution
+    val decrypt6 = Caesar().decipher2("Spwwz, Hzcwo!")
+    println("Decrypt2: $decrypt6")
+
 }
