@@ -218,4 +218,15 @@ fun main(args: Array<String>) {
     val decrypt6 = Caesar().decipher2("Spwwz, Hzcwo!")
     println("Decrypt2: $decrypt6")
 
+    val encrypt2 = Caesar().encipher("The rain in Spain falls mainly on the plain", 19)
+    println("Encrypt: $encrypt2")
+
+    // Using Letter Frequency Solution
+    val decrypt7 = Caesar().decipher("Max ktbg bg Litbg yteel ftbger hg max ietbg")
+    println("Decrypt: $decrypt7")
+
+    // Using Word Frequency Solution
+    val decrypt8 = Caesar().decipher2("Max ktbg bg Litbg yteel ftbger hg max ietbg")
+    println("Decrypt2: $decrypt8")
+
 }
