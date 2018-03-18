@@ -174,7 +174,7 @@ class Caesar {
 
     private fun createWordList(): ArrayList<String> {
         // create and load dictionary array of frequent words
-        val input = Scanner(File("src/main/resources/100FrequentWords.txt"))
+        val input = Scanner(File("src/main/resources/3000CommonWords.txt"))
         val frequentWords = ArrayList<String>()
         while (input.hasNext()) {
             frequentWords += input.nextLine()
