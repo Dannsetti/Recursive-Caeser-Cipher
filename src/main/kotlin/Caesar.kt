@@ -1,5 +1,4 @@
 import java.io.File
-import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -103,22 +102,15 @@ class Caesar {
         var alphabetCounter = 0
         for (j in alphabet) {
             alphabetCounter += 1
-            // println("al " + alphabetCounter)
             // when find it subtract the value index to discover the key that was used to encrypt
             if (j.toString() == letterMaxOccur) {
                 key -= alphabetCounter
-                // println(alphabetCounter)
-                // println(key)
 
             }
         }
 
         if (key > 26) {
-            for (k in 26..key) {
-                // println("Here")
-                extraIndex += 1
-            }
-            key = extraIndex
+            key %= 26
         }
 
         // call the encipher function to decipher using the key discovered.
@@ -228,5 +220,34 @@ fun main(args: Array<String>) {
     // Using Word Frequency Solution
     val decrypt8 = Caesar().decipher2("Max ktbg bg Litbg yteel ftbger hg max ietbg")
     println("Decrypt2: $decrypt8")
+
+    // Last tests
+
+    // Using Letter Frequency Solution
+    val decrypt9 = Caesar().decipher("Fgneg jvgu gur fvtangher")
+    println("Decrypt: $decrypt9")
+
+    // Using Word Frequency Solution
+    val decrypt10 = Caesar().decipher2("Fgneg jvgu gur fvtangher")
+    println("Decrypt2: $decrypt10")
+
+    // Using Letter Frequency Solution
+    val decrypt11 = Caesar().decipher("Nyy'f snve (cynl) va ybir naq jne. Naq jung'f gur anzr " +
+            "bs gung obbx naljnl?")
+    println("Decrypt: $decrypt11")
+
+    // Using Word Frequency Solution
+    val decrypt12 = Caesar().decipher2("Nyy'f snve (cynl) va ybir naq jne. Naq jung'f gur anzr " +
+            "bs gung obbx naljnl?")
+    println("Decrypt2: $decrypt12")
+
+    // Using Letter Frequency Solution
+    val decrypt13 = Caesar().decipher("Ragre gur rzonffl sebz gur onfrzrag ba gur abegujrfg pbeare")
+    println("Decrypt: $decrypt13")
+
+    // Using Word Frequency Solution
+    val decrypt14 = Caesar().decipher2("Ragre gur rzonffl sebz gur onfrzrag ba gur abegujrfg pbeare")
+    println("Decrypt2: $decrypt14")
+
 
 }
