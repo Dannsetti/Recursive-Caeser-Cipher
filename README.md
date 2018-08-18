@@ -1,9 +1,6 @@
-# CW2
+# Caeser Cipher in Kotlin
 
-### Collaborators
+BBK Pair programming assignment
 
-|Name|BBK Name|
-|----|----|
-|Daniel Sette|dsette01|
-|Dennis Bueso-Calix|dbueso01|
+Recursive Caeser Cipher
 
